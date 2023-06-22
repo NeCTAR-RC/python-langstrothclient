@@ -1,0 +1,7 @@
+testrepository
+hacking>=6.0
+coverage
+mock
+requests-mock
+testtools
+stestr
