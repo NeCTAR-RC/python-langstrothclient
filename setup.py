@@ -2,8 +2,6 @@
 
 import setuptools
 
-from pbr.packaging import parse_requirements
-
 entry_points = {
     'openstack.cli.extension': [
         'outage = langstrothclient.osc.plugin'],
