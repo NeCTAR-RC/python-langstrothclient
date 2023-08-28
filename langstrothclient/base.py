@@ -13,7 +13,6 @@
 
 import abc
 import copy
-from datetime import datetime
 
 from requests import Response
 import six
@@ -322,13 +321,6 @@ class Resource(RequestIdMixin):
 
     def _add_details(self, info):
         for (k, v) in six.iteritems(info):
-            if k in self.date_fields:
-                try:
-                    setattr(self, k, datetime.strptime(v, DATE_FORMAT))
-                    continue
-                except Exception:
-                    # Couldn't pasrse date, fallback to string
-                    pass
             try:
                 setattr(self, k, v)
                 self._info[k] = v

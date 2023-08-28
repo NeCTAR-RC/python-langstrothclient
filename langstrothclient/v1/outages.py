@@ -18,8 +18,6 @@ from langstrothclient import base
 
 class Outage(base.Resource):
 
-    date_fields = ['start', 'end']
-
     def __repr__(self):
         return "<Outage %s>" % self.id
 
