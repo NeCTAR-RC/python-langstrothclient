@@ -15,6 +15,8 @@ import json
 
 from nectarclient_lib import base
 
+from langstrothclient import constants
+
 
 class OutageUpdate(base.Resource):
 
@@ -39,6 +41,44 @@ class Outage(base.Resource):
 
     def __repr__(self):
         return "<Outage %s>" % self.id
+
+    @property
+    def severity(self):
+        return (self.updates[-1].severity if self.updates
+                else self.scheduled_severity)
+
+    @property
+    def severity_display(self):
+        return constants.SEVERITY_DISPLAY.get(self.severity, "Unknown")
+
+    @property
+    def scheduled_display(self):
+        return ("Cancelled" if self.cancelled
+                else "Scheduled" if self.scheduled
+                else "Unscheduled")
+
+    @property
+    def status_display(self):
+        if self.updates:
+            return constants.STATUS_DISPLAY.get(
+                self.updates[-1].status, "Not Started")
+        return "Not Started"
+
+    @property
+    def start(self):
+        if self.updates:
+            return self.updates[0].time
+        else:
+            return None
+
+    @property
+    def end(self):
+        if (self.updates
+            and self.updates[-1].status in (constants.COMPLETED,
+                                            constants.RESOLVED)):
+            return self.updates[-1].time
+        else:
+            return None
 
 
 class OutageManager(base.BasicManager):

@@ -13,10 +13,9 @@
 
 import datetime
 
-from langstrothclient.v1 import outages
-
 from langstrothclient.tests.unit import utils
 from langstrothclient.tests.unit.v1 import fakes
+from langstrothclient.v1 import outages
 
 
 class OutagesTest(utils.TestCase):
@@ -42,3 +41,18 @@ class OutagesTest(utils.TestCase):
         o = self.cs.outages.get(123)
         self.assertIsInstance(o.scheduled_start, datetime.datetime)
         self.assertIsInstance(o.updates[0].time, datetime.datetime)
+
+        self.assertEqual(3, o.severity)
+        self.assertEqual('Severe', o.severity_display)
+        self.assertEqual('Scheduled', o.scheduled_display)
+        self.assertEqual('Completed', o.status_display)
+        self.assertEqual(
+            datetime.datetime(2023, 9, 14, 10, 39, 51,
+                              tzinfo=datetime.timezone(
+                                  datetime.timedelta(seconds=36000))),
+            o.start)
+        self.assertEqual(
+            datetime.datetime(2023, 10, 3, 16, 27, 52,
+                              tzinfo=datetime.timezone(
+                                  datetime.timedelta(seconds=39600))),
+            o.end)
