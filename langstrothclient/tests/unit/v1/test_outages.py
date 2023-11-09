@@ -11,6 +11,8 @@
 #   under the License.
 #
 
+import datetime
+
 from langstrothclient.v1 import outages
 
 from langstrothclient.tests.unit import utils
@@ -35,3 +37,8 @@ class OutagesTest(utils.TestCase):
         self.cs.assert_called('GET', '/v1/outages/123/')
         self.assertIsInstance(o, outages.Outage)
         self.assertEqual(123, o.id)
+
+    def test_attrs(self):
+        o = self.cs.outages.get(123)
+        self.assertIsInstance(o.scheduled_start, datetime.datetime)
+        self.assertIsInstance(o.updates[0].time, datetime.datetime)

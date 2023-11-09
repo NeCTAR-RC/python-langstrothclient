@@ -16,7 +16,26 @@ import json
 from nectarclient_lib import base
 
 
+class OutageUpdate(base.Resource):
+
+    DATE_FORMAT = '%Y-%m-%dT%H:%M:%S%z'
+    date_fields = ['time']
+
+    def __repr__(self):
+        return "<OutageUpdate %s>" % self.time
+
+
 class Outage(base.Resource):
+
+    DATE_FORMAT = '%Y-%m-%dT%H:%M:%S%z'
+    date_fields = ['scheduled_start', 'scheduled_end']
+
+    def __init__(self, manager, info, loaded=False, resp=None):
+        super().__init__(manager, info, loaded, resp)
+        raw_updates = self.updates
+        self.updates = []
+        for update in raw_updates:
+            self.updates.append(OutageUpdate(manager, update))
 
     def __repr__(self):
         return "<Outage %s>" % self.id
