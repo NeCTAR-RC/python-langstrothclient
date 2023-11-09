@@ -14,7 +14,7 @@ entry_points = {
 
 setuptools.setup(
     name='langstrothclient',
-    version='0.3.0',
+    version='0.4.0',
     description='Client for the Nectar Status and Outage system (Langstroth)',
     author='Stephen Crawley',
     author_email='stephen.crawley@ardc.edu.au',
