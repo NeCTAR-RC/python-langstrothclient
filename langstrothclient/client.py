@@ -11,9 +11,8 @@
 #   under the License.
 #
 from keystoneauth1 import adapter
+from nectarclient_lib import exceptions
 from oslo_utils import importutils
-
-from langstrothclient import exceptions
 
 
 def Client(version, *args, **kwargs):

@@ -11,8 +11,9 @@
 #   under the License.
 #
 
+from nectarclient_lib import exceptions
+
 from langstrothclient import client
-from langstrothclient import exceptions
 from langstrothclient.v1 import outages
 
 

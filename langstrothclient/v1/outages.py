@@ -13,7 +13,7 @@
 
 import json
 
-from langstrothclient import base
+from nectarclient_lib import base
 
 
 class Outage(base.Resource):
@@ -29,5 +29,4 @@ class OutageManager(base.BasicManager):
 
     def update(self, outage_id, **kwargs):
         data = json.dumps(kwargs)
-        return self._update(f"/{self.base_url}/{outage_id}/", data=data,
-                            headers={"content-type": "application/json"})
+        return self._update(f"/{self.base_url}/{outage_id}/", data=data)

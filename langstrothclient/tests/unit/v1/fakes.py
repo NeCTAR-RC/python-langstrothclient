@@ -34,14 +34,27 @@ ENDPOINT_TYPE_RE = re.compile(r"^v\d(\.\d)?$")
 # accepts formats like v2 or v2_1
 CALLBACK_RE = re.compile(r"^get_http:__langstroth_api:8774_v\d(_\d)?$")
 
+generic_updates = [
+    {'content': 'We are starting now ...',
+     'time': '2023-09-14T10:39:51+10:00',
+     'status': 'S',
+     'severity': 3},
+    {'content': 'It is finished.',
+     'time': '2023-10-03T16:27:52+11:00',
+     'status': 'C',
+     'severity': 3}
+]
+
 generic_outage = {
     "title": "The sky is falling",
     "id": 123,
     "description": "The sky is falling all over the world. We are doomed.",
-    "severity": "5",
-    "status": "IN",
-    "start": "2020-04-01T10:23:20",
-    "end": "2020-04-01T12:00:00",
+    "scheduled": True,
+    "cancelled": False,
+    "scheduled_start": '2023-09-14T10:38:26+10:00',
+    "scheduled_end": '2023-09-22T17:00:00+10:00',
+    "scheduled_severity": 3,
+    "updates": generic_updates,
 }
 
 
@@ -126,28 +139,35 @@ class FakeSessionClient(base_client.SessionClient):
             {
                 "title": "The sky is falling",
                 "id": 123,
-                "description": "We are all doomed.",
-                "severity": 5,
-                "status": "IN",
-                "start": "2020-04-01T10:23:20",
-                "end": "2020-04-01T12:00:00",
+                "description": "The sky is falling all over the world",
+                "scheduled": True,
+                "cancelled": False,
+                "scheduled_start": '2023-09-14T10:38:26+10:00',
+                "scheduled_end": '2023-09-22T17:00:00+10:00',
+                "scheduled_severity": 3,
+                "updates": generic_updates,
             },
             {
                 "title": "The sun is rising",
                 "id": 124,
                 "description": "Time to start your research.",
-                "severity": 1,
-                "status": "W",
-                "start": "2020-05-01T06:00:00",
-                "end": "2020-05-01T06:10:00",
+                "scheduled": True,
+                "cancelled": False,
+                "scheduled_start": '2023-09-14T10:38:26+10:00',
+                "scheduled_end": '2023-09-22T17:00:00+10:00',
+                "scheduled_severity": 3,
+                "updates": [],
             },
             {
                 "title": "It is raining",
                 "id": 125,
                 "description": "Lovely weather here in Seattle.",
-                "severity": 1,
-                "status": "W",
-                "start": "2021-01-01T00:00:00"
+                "scheduled": True,
+                "cancelled": False,
+                "scheduled_start": '2023-09-14T10:38:26+10:00',
+                "scheduled_end": '2023-09-22T17:00:00+10:00',
+                "scheduled_severity": 3,
+                "updates": generic_updates,
             },
         ]
         return (200, {}, outages)
