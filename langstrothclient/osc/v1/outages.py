@@ -22,7 +22,7 @@ from langstrothclient import exceptions
 class ListOutages(command.Lister):
     """List outages."""
 
-    log = logging.getLogger(__name__ + '.ListUsers')
+    log = logging.getLogger(__name__ + '.ListOutages')
 
     def take_action(self, parsed_args):
         self.log.debug('take_action(%s)', parsed_args)
@@ -56,8 +56,8 @@ class ShowOutage(OutageCommand):
         self.log.debug('take_action(%s)', parsed_args)
         client = self.app.client_manager.outage
         try:
-            user = client.outages.get(parsed_args.id)
+            outage = client.outages.get(parsed_args.id)
         except exceptions.NotFound as ex:
             raise exceptions.CommandError(str(ex))
 
-        return self.dict2columns(user.to_dict())
+        return self.dict2columns(outage.to_dict())
