@@ -54,5 +54,5 @@ class OutagesTest(utils.TestCase):
         self.assertEqual(
             datetime.datetime(2023, 10, 3, 16, 27, 52,
                               tzinfo=datetime.timezone(
-                                  datetime.timedelta(seconds=39600))),
+                                  datetime.timedelta(seconds=36000))),
             o.end)

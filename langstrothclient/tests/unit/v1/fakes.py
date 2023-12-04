@@ -54,6 +54,12 @@ generic_outage = {
     "scheduled_start": '2023-09-14T10:38:26+10:00',
     "scheduled_end": '2023-09-22T17:00:00+10:00',
     "scheduled_severity": 3,
+    "severity": 3,
+    "severity_display": "Severe",
+    "scheduled_display": "Scheduled",
+    "status_display": 'Completed',
+    "start": '2023-09-14T10:39:51+10:00',
+    "end": '2023-10-03T16:27:52+10:00',
     "updates": generic_updates,
 }
 
