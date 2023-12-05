@@ -25,7 +25,7 @@ class ListOutages(command.Lister):
 
     def take_action(self, parsed_args):
         self.log.debug('take_action(%s)', parsed_args)
-        client = self.app.client_manager.outage
+        client = self.app.client_manager.nectar_ops
         outages = client.outages.list()
         columns = ['id', 'title', 'status_display', 'severity_display',
                    'start', 'end']
@@ -54,7 +54,7 @@ class ShowOutage(OutageCommand):
 
     def take_action(self, parsed_args):
         self.log.debug('take_action(%s)', parsed_args)
-        client = self.app.client_manager.outage
+        client = self.app.client_manager.nectar_ops
         try:
             outage = client.outages.get(parsed_args.id)
         except exceptions.NotFound as ex:

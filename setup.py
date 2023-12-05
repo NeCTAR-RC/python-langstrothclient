@@ -6,16 +6,16 @@ from pbr.packaging import parse_requirements
 
 entry_points = {
     'openstack.cli.extension': [
-        'outage = langstrothclient.osc.plugin'],
-    'openstack.outage.v1': [
+        'nectar_ops = langstrothclient.osc.plugin'],
+    'openstack.nectar_ops.v1': [
         'outage list = langstrothclient.osc.v1.outages:ListOutages',
         'outage show = langstrothclient.osc.v1.outages:ShowOutage']
 }
 
 setuptools.setup(
     name='langstrothclient',
-    version='0.6.0',
-    description='Client for the Nectar Status and Outage system (Langstroth)',
+    version='0.7.0',
+    description='Client for the Nectar Operations system (Langstroth)',
     author='Stephen Crawley',
     author_email='stephen.crawley@ardc.edu.au',
     url='https://github.com/NeCTAR-RC/python-langstrothclient',

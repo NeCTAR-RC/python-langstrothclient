@@ -17,8 +17,8 @@ from osc_lib import utils
 DEFAULT_API_VERSION = '1'
 
 # Required by the OSC plugin interface
-API_NAME = 'outage'
-API_VERSION_OPTION = 'os_outage_api_version'
+API_NAME = 'nectar_ops'
+API_VERSION_OPTION = 'os_nectar_ops_api_version'
 API_VERSIONS = {
     '1': 'langstrothclient.v1.client.Client',
 }
@@ -56,13 +56,13 @@ def build_option_parser(parser):
         initialized by OpenStackShell.
     """
     parser.add_argument(
-        '--os-outage-api-version',
-        metavar='<outage-api-version>',
-        help='Nectar Outage API version, default='
+        '--os-nectar-ops-api-version',
+        metavar='<nectar-ops-api-version>',
+        help='Nectar Operations API version, default='
              + DEFAULT_API_VERSION
-             + ' (Env: OS_OUTAGE_API_VERSION)')
+             + ' (Env: OS_NECTAR_OPS_API_VERSION)')
     parser.add_argument(
-        '--os-outage-endpoint',
-        metavar='<outage-endpoint>',
-        help='Nectar Outage API endpoint')
+        '--os-nectar-ops-endpoint',
+        metavar='<nectar-ops-endpoint>',
+        help='Nectar Operations API endpoint')
     return parser
