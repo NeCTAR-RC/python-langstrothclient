@@ -18,7 +18,6 @@ from nectarclient_lib import base
 
 class OutageUpdate(base.Resource):
 
-    DATE_FORMAT = '%Y-%m-%dT%H:%M:%S%z'
     date_fields = ['time']
 
     def __repr__(self):
@@ -27,7 +26,6 @@ class OutageUpdate(base.Resource):
 
 class Outage(base.Resource):
 
-    DATE_FORMAT = '%Y-%m-%dT%H:%M:%S%z'
     date_fields = ['scheduled_start', 'scheduled_end', 'start', 'end']
 
     def __init__(self, manager, info, loaded=False, resp=None):

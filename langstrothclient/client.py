@@ -25,7 +25,7 @@ def Client(version, *args, **kwargs):
 class SessionClient(adapter.Adapter):
 
     client_name = 'python-langstrothclient'
-    client_version = '0.7.0'
+    client_version = '0.8.0'
 
     def request(self, url, method, **kwargs):
         # NOTE(sorrison): The standard call raises errors from
