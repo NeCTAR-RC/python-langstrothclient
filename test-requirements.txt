@@ -1,7 +1,7 @@
 testrepository
-hacking>=6.0
+hacking
 coverage
-mock
 requests-mock
 testtools
 stestr
+freezegun
