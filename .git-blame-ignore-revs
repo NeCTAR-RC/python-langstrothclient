@@ -1,0 +1,10 @@
+# git-blame ignore revs
+#
+# Configure local git to use this file with:
+#   git config blame.ignoreRevsFile .git-blame-ignore-revs
+#
+# GitHub auto-honours this file in its blame view.
+
+# chore: apply ruff format and lint fixes
+0961b6b09f621556b1c3d2e69adccc0199e31c32
+
