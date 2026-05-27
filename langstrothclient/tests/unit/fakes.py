@@ -34,12 +34,10 @@ def assert_has_keys(dict, required=None, optional=None):
             assert k in keys
         except AssertionError:
             extra_keys = set(keys).difference(set(required + optional))
-            raise AssertionError("found unexpected keys: %s" %
-                                 list(extra_keys))
+            raise AssertionError(f"found unexpected keys: {list(extra_keys)}")
 
 
-class FakeClient(object):
-
+class FakeClient:
     def assert_called(self, method, url, data=None, pos=-1, params=None):
         """Assert that an HTTP method was called at given order/position.
         :param method: HTTP method name which is expected to be called
@@ -75,29 +73,34 @@ class FakeClient(object):
         """
         expected = (method, url)
 
-        assert self.http_client.callstack, \
-            "Expected %s %s but no calls were made." % expected
+        assert self.http_client.callstack, (
+            "Expected {} {} but no calls were made.".format(*expected)
+        )
 
         called = self.http_client.callstack[pos][0:2]
 
-        assert expected == called, \
-            ('\nExpected: %(expected)s'
-             '\nActual: %(called)s'
-             '\nCall position: %(pos)s'
-             '\nCalls:\n%(calls)s' %
-             {'expected': expected, 'called': called, 'pos': pos,
-              'calls': '\n'.join(str(c) for c in self.http_client.callstack)})
+        assert expected == called, (
+            '\nExpected: {expected}'
+            '\nActual: {called}'
+            '\nCall position: {pos}'
+            '\nCalls:\n{calls}'.format(
+                expected=expected,
+                called=called,
+                pos=pos,
+                calls='\n'.join(str(c) for c in self.http_client.callstack),
+            )
+        )
 
         if data is not None:
             if self.http_client.callstack[pos][2] != data:
-                raise AssertionError('%r != %r' %
-                                     (self.http_client.callstack[pos][2],
-                                      data))
+                raise AssertionError(
+                    f'{self.http_client.callstack[pos][2]!r} != {data!r}'
+                )
         if params is not None:
             if self.http_client.callstack[pos][3] != params:
-                raise AssertionError('%r != %r' %
-                                     (self.http_client.callstack[pos][3],
-                                      params))
+                raise AssertionError(
+                    f'{self.http_client.callstack[pos][3]!r} != {params!r}'
+                )
 
     def assert_called_anytime(self, method, url, data=None):
         """Assert that an HTTP method was called anytime in the test.
@@ -111,8 +114,9 @@ class FakeClient(object):
         """
         expected = (method, url)
 
-        assert self.http_client.callstack, \
-            "Expected %s %s but no calls were made." % expected
+        assert self.http_client.callstack, (
+            "Expected {} {} but no calls were made.".format(*expected)
+        )
 
         found = False
         for entry in self.http_client.callstack:
@@ -120,8 +124,7 @@ class FakeClient(object):
                 found = True
                 break
 
-        assert found, 'Expected %s; got %s' % (expected,
-                                               self.http_client.callstack)
+        assert found, f'Expected {expected}; got {self.http_client.callstack}'
         if data is not None:
             try:
                 assert entry[2] == data
@@ -143,7 +146,8 @@ class FakeClient(object):
         not_expected = (method, url, data)
         for entry in self.http_client.callstack:
             assert not_expected != entry[0:3], (
-                'API %s %s data=%s was called.' % not_expected)
+                'API {} {} data={} was called.'.format(*not_expected)
+            )
 
     def clear_callstack(self):
         self.http_client.callstack = []

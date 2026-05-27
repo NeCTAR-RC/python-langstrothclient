@@ -27,23 +27,24 @@ class ListOutages(command.Lister):
         self.log.debug('take_action(%s)', parsed_args)
         client = self.app.client_manager.nectar_ops
         outages = client.outages.list()
-        columns = ['id', 'title', 'status_display', 'severity_display',
-                   'start', 'end']
+        columns = [
+            'id',
+            'title',
+            'status_display',
+            'severity_display',
+            'start',
+            'end',
+        ]
         return (
             columns,
-            (osc_utils.get_item_properties(q, columns) for q in outages)
+            (osc_utils.get_item_properties(q, columns) for q in outages),
         )
 
 
 class OutageCommand(command.ShowOne):
-
     def get_parser(self, prog_name):
-        parser = super(OutageCommand, self).get_parser(prog_name)
-        parser.add_argument(
-            'id',
-            metavar='<id>',
-            help=('ID of outage')
-        )
+        parser = super().get_parser(prog_name)
+        parser.add_argument('id', metavar='<id>', help=('ID of outage'))
         return parser
 
 

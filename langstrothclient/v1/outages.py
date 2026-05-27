@@ -17,15 +17,13 @@ from nectarclient_lib import base
 
 
 class OutageUpdate(base.Resource):
-
     date_fields = ['time']
 
     def __repr__(self):
-        return "<OutageUpdate %s>" % self.time
+        return f"<OutageUpdate {self.time}>"
 
 
 class Outage(base.Resource):
-
     date_fields = ['scheduled_start', 'scheduled_end', 'start', 'end']
 
     def __init__(self, manager, info, loaded=False, resp=None):
@@ -36,11 +34,10 @@ class Outage(base.Resource):
             self.updates.append(OutageUpdate(manager, update))
 
     def __repr__(self):
-        return "<Outage %s>" % self.id
+        return f"<Outage {self.id}>"
 
 
 class OutageManager(base.BasicManager):
-
     base_url = 'v1/outages'
     resource_class = Outage
 

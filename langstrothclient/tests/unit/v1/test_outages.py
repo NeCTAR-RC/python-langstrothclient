@@ -19,7 +19,6 @@ from langstrothclient.v1 import outages
 
 
 class OutagesTest(utils.TestCase):
-
     def setUp(self):
         super().setUp()
         self.cs = fakes.FakeClient()
@@ -47,12 +46,26 @@ class OutagesTest(utils.TestCase):
         self.assertEqual('Scheduled', o.scheduled_display)
         self.assertEqual('Completed', o.status_display)
         self.assertEqual(
-            datetime.datetime(2023, 9, 14, 10, 39, 51,
-                              tzinfo=datetime.timezone(
-                                  datetime.timedelta(seconds=36000))),
-            o.start)
+            datetime.datetime(
+                2023,
+                9,
+                14,
+                10,
+                39,
+                51,
+                tzinfo=datetime.timezone(datetime.timedelta(seconds=36000)),
+            ),
+            o.start,
+        )
         self.assertEqual(
-            datetime.datetime(2023, 10, 3, 16, 27, 52,
-                              tzinfo=datetime.timezone(
-                                  datetime.timedelta(seconds=36000))),
-            o.end)
+            datetime.datetime(
+                2023,
+                10,
+                3,
+                16,
+                27,
+                52,
+                tzinfo=datetime.timezone(datetime.timedelta(seconds=36000)),
+            ),
+            o.end,
+        )

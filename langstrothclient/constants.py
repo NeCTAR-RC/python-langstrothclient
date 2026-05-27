@@ -26,7 +26,7 @@ STATUS_DISPLAY = {
     PROGRESSING: 'Progressing',
     FIXED: 'Fixed',
     RESOLVED: 'Resolved',
-    COMPLETED: 'Completed'
+    COMPLETED: 'Completed',
 }
 
 # Outage Severity
@@ -36,5 +36,5 @@ SEVERE = 3
 SEVERITY_DISPLAY = {
     MINIMAL: 'Minimal',
     SIGNIFICANT: 'Significant',
-    SEVERE: 'Severe'
+    SEVERE: 'Severe',
 }

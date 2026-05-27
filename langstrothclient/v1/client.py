@@ -17,7 +17,7 @@ from langstrothclient import client
 from langstrothclient.v1 import outages
 
 
-class Client(object):
+class Client:
     """Client for the Nectar Langstroth v1 API
     :param string session: session
     :type session: :py:class:`keystoneauth.adapter.Adapter`
@@ -27,7 +27,9 @@ class Client(object):
         """Initialize a new client for the Langstroth v1 API."""
         if session is None:
             raise exceptions.ClientException(
-                message='Session is required argument')
+                message='Session is required argument'
+            )
         self.http_client = client.SessionClient(
-            session, service_type=service_type, **kwargs)
+            session, service_type=service_type, **kwargs
+        )
         self.outages = outages.OutageManager(self.http_client)
