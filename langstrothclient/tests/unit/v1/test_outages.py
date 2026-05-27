@@ -38,7 +38,7 @@ class OutagesTest(utils.TestCase):
 
     def test_attrs(self):
         o = self.cs.outages.get(123)
-        self.assertIsInstance(o.scheduled_start, datetime.datetime)
+        self.assertIsInstance(o.planned_end, datetime.datetime)
         self.assertIsInstance(o.updates[0].time, datetime.datetime)
 
         self.assertEqual(3, o.severity)

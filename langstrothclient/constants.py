@@ -12,21 +12,17 @@
 #
 
 # Outage Status
-STARTED = 'S'
 INVESTIGATING = 'IN'
 IDENTIFIED = 'ID'
 PROGRESSING = 'P'
 FIXED = 'F'
 RESOLVED = 'R'
-COMPLETED = 'C'
 STATUS_DISPLAY = {
-    STARTED: 'Started',
     INVESTIGATING: 'Investigating',
     IDENTIFIED: 'Identified',
     PROGRESSING: 'Progressing',
     FIXED: 'Fixed',
     RESOLVED: 'Resolved',
-    COMPLETED: 'Completed',
 }
 
 # Outage Severity

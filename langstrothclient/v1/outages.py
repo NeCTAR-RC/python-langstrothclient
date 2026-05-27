@@ -24,7 +24,7 @@ class OutageUpdate(base.Resource):
 
 
 class Outage(base.Resource):
-    date_fields = ['scheduled_start', 'scheduled_end', 'start', 'end']
+    date_fields = ['start', 'end', 'planned_end']
 
     def __init__(self, manager, info, loaded=False, resp=None):
         super().__init__(manager, info, loaded, resp)
