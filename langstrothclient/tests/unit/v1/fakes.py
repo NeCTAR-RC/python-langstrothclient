@@ -18,6 +18,7 @@ from six.moves.urllib import parse
 from langstrothclient import client as base_client
 from langstrothclient.tests.unit import fakes
 from langstrothclient.tests.unit import utils
+from langstrothclient.v1 import announcements
 from langstrothclient.v1 import client
 from langstrothclient.v1 import outages
 
@@ -62,12 +63,76 @@ generic_outage = {
     "updates": generic_updates,
 }
 
+# v1/announcements payloads: no scheduled_* aliases, a category
+# discriminator, null severity for news, and updates without severity.
+announcement_updates = [
+    {
+        'content': 'We are starting now ...',
+        'time': '2023-09-14T10:39:51+10:00',
+        'status': 'IN',
+    },
+]
+
+generic_announcements = [
+    {
+        "title": "The sky is falling",
+        "id": 201,
+        "description": "The sky is falling all over the world.",
+        "category": "outage",
+        "scheduled": True,
+        "cancelled": False,
+        "start": '2023-09-14T10:39:51+10:00',
+        "planned_end": '2023-09-22T17:00:00+10:00',
+        "end": '2023-10-03T16:27:52+10:00',
+        "severity": 3,
+        "severity_display": "Severe",
+        "scheduled_display": "Scheduled",
+        "status_display": 'Completed',
+        "updates": announcement_updates,
+    },
+    {
+        "title": "CVE-2026-0001 advisory",
+        "id": 202,
+        "description": "Patch your instances.",
+        "category": "notice",
+        "scheduled": False,
+        "cancelled": False,
+        "start": '2026-07-01T10:00:00+10:00',
+        "planned_end": None,
+        "end": None,
+        "severity": 3,
+        "severity_display": "Severe",
+        "scheduled_display": "unscheduled",
+        "status_display": 'Investigating',
+        "updates": announcement_updates,
+    },
+    {
+        "title": "New GPU flavours",
+        "id": 203,
+        "description": "Now available in all AZs.",
+        "category": "news",
+        "scheduled": False,
+        "cancelled": False,
+        "start": '2026-07-02T09:00:00+10:00',
+        "planned_end": None,
+        "end": None,
+        "severity": None,
+        "severity_display": None,
+        "scheduled_display": "unscheduled",
+        "status_display": 'Published',
+        "updates": [],
+    },
+]
+
 
 class FakeClient(fakes.FakeClient, client.Client):
     def __init__(self, *args, **kwargs):
         client.Client.__init__(self, session=mock.Mock())
         self.http_client = FakeSessionClient(**kwargs)
         self.outages = outages.OutageManager(self.http_client)
+        self.announcements = announcements.AnnouncementManager(
+            self.http_client
+        )
 
 
 class FakeSessionClient(base_client.SessionClient):
@@ -181,3 +246,17 @@ class FakeSessionClient(base_client.SessionClient):
 
     def get_v1_outages_123(self, **kwargs):
         return (200, {}, generic_outage)
+
+    def get_v1_announcements(self, **kwargs):
+        items = generic_announcements
+        # BasicManager.list() sends filters via request params.
+        category = (kwargs.get('params') or {}).get('category')
+        if category:
+            items = [a for a in items if a['category'] == category]
+        return (200, {}, items)
+
+    def get_v1_announcements_201(self, **kwargs):
+        return (200, {}, generic_announcements[0])
+
+    def get_v1_announcements_203(self, **kwargs):
+        return (200, {}, generic_announcements[2])

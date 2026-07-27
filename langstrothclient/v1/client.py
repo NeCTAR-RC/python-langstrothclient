@@ -14,6 +14,7 @@
 from nectarclient_lib import exceptions
 
 from langstrothclient import client
+from langstrothclient.v1 import announcements
 from langstrothclient.v1 import outages
 
 
@@ -33,3 +34,6 @@ class Client:
             session, service_type=service_type, **kwargs
         )
         self.outages = outages.OutageManager(self.http_client)
+        self.announcements = announcements.AnnouncementManager(
+            self.http_client
+        )
